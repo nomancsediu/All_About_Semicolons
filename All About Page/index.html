@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All About Semicolons - Programming Education Channel</title>
+    <meta name="description" content="Learn programming with All About Semicolons. High-quality tutorials on C, Python, Database Management, and Computer Networks. Join 112+ students in mastering coding concepts." />
+    <meta name="author" content="All About Semicolons" />
+    <meta name="keywords" content="programming, C programming, Python, DBMS, computer networks, coding tutorials, programming education" />
+    <meta property="og:title" content="All About Semicolons - Programming Education Channel" />
+    <meta property="og:description" content="Master programming concepts with high-quality tutorials on C, Python, DBMS, and Computer Networks. Join our community of learners today!" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@allaboutsemicolons" />
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Daisy UI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.0/dist/full.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --text: #334155;
+            --text-light: #64748b;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            color: var(--text);
+            background-color: var(--light);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px 12px 0 0;
+        }
+        
+        .video-thumbnail::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .video-thumbnail:hover::after {
+            opacity: 1;
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .video-thumbnail:hover .play-button {
+            opacity: 1;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .tab-active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .scroll-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .slide-up {
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Mobile menu animation */
+        #mobile-menu {
+            transition: all 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        #mobile-menu.open {
+            max-height: 500px;
+        }
+        
+        /* Dark mode styles */
+        .dark-mode {
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+        
+        .dark-mode .bg-white {
+            background-color: #1e293b;
+        }
+        
+        .dark-mode .text-gray-800 {
+            color: #e2e8f0;
+        }
+        
+        .dark-mode .text-gray-600 {
+            color: #cbd5e0;
+        }
+        
+        .dark-mode .text-gray-700 {
+            color: #e2e8f0;
+        }
+        
+        .dark-mode .text-gray-500 {
+            color: #94a3b8;
+        }
+        
+        .dark-mode .border-gray-200 {
+            border-color: #334155;
+        }
+        
+        .dark-mode .bg-gray-50 {
+            background-color: #1e293b;
+        }
+        
+        .dark-mode .bg-gray-100 {
+            background-color: #334155;
+        }
+        
+        .dark-mode .video-card {
+            background-color: #1e293b;
+        }
+        
+        .dark-mode .stat-card {
+            background-color: #1e293b;
+        }
+        
+        /* New styles for enhanced interactivity */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: var(--primary);
+            z-index: 1000;
+            transition: width 0.2s ease;
+        }
+        
+        /* Playlist card fixes */
+        .playlist-card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .playlist-button {
+            margin-top: auto;
+        }
+        
+        /* Responsive improvements */
+        @media (max-width: 1024px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+            
+            .tabs-boxed {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .tabs-boxed .tab {
+                margin-bottom: 8px;
+            }
+            
+            #playlistsGrid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .stat-card {
+                padding: 1rem;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .hero h2 {
+                font-size: 1.875rem;
+                line-height: 2.25rem;
+            }
+            
+            .hero p {
+                font-size: 0.875rem;
+                line-height: 1.25rem;
+            }
+            
+            .stat-card {
+                padding: 0.75rem;
+            }
+            
+            .stat-card .text-3xl {
+                font-size: 1.5rem;
+                line-height: 2rem;
+            }
+            
+            .stat-card .text-4xl {
+                font-size: 2rem;
+                line-height: 2.5rem;
+            }
+            
+            #playlistsGrid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .video-card {
+                margin-bottom: 1.5rem;
+            }
+            
+            .video-thumbnail img {
+                height: 200px;
+                object-fit: cover;
+            }
+            
+            .playlist-card-content h3 {
+                font-size: 1.125rem;
+                line-height: 1.75rem;
+            }
+            
+            .playlist-card-content p {
+                font-size: 0.875rem;
+                line-height: 1.25rem;
+            }
+            
+            .playlist-button {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.875rem;
+            }
+            
+            .about-features {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .about-feature-card {
+                padding: 1rem;
+            }
+            
+            .about-feature-card h3 {
+                font-size: 1rem;
+                line-height: 1.5rem;
+            }
+            
+            .about-feature-card p {
+                font-size: 0.75rem;
+                line-height: 1rem;
+            }
+            
+            .about-mission .text-2xl {
+                font-size: 1.25rem;
+                line-height: 1.75rem;
+            }
+            
+            .about-mission p {
+                font-size: 0.875rem;
+                line-height: 1.25rem;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .scroll-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero .flex {
+                flex-direction: column;
+            }
+            
+            .hero .md\:w-1\/2 {
+                width: 100%;
+            }
+            
+            .hero img {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .hero .absolute {
+                position: static;
+                margin-top: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <!-- Scroll to Top Button -->
+    <div class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    
+    <!-- Header -->
+    <header class="hero-gradient text-white sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between py-4">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="bg-white text-indigo-700 rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center text-xl md:text-2xl mr-3">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl md:text-2xl font-bold">All About Semicolons</h1>
+                    </div>
+                </div>
+                
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-6 md:space-x-8">
+                        <li><a href="#home" class="nav-link text-sm md:text-base">Home</a></li>
+                        <li><a href="#playlists" class="nav-link text-sm md:text-base">Playlists</a></li>
+                        <li><a href="#about" class="nav-link text-sm md:text-base">About</a></li>
+                        <li><a href="#contact" class="nav-link text-sm md:text-base">Contact</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <button id="darkModeToggle" class="btn btn-ghost bg-indigo-800 hover:bg-indigo-700 text-white rounded-full w-10 h-10 md:w-auto md:h-auto">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="mobileMenuToggle" class="btn btn-ghost md:hidden bg-indigo-800 hover:bg-indigo-700 text-white rounded-full w-10 h-10">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+    </header>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 py-12 md:py-20">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                <!-- Left Side -->
+                <div class="md:w-1/2 text-center md:text-left fade-in">
+                    <h2 class="text-3xl md:text-5xl font-bold text-gray-800 mb-4">
+                        Welcome to <span class="text-gradient">All About Semicolons</span>
+                    </h2>
+                    <p class="text-lg md:text-xl text-gray-600 mb-6">Where every pause sparks a new journey</p>
+                    <p class="text-gray-600 mb-8 text-sm md:text-base max-w-lg mx-auto md:mx-0">
+                     Explore Programming, Development, Machine Learning, Networking, and Research. Join us to boost your technical skills.
+                    </p>
+                    <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                        <button class="btn btn-primary bg-indigo-600 hover:bg-indigo-700 border-none text-white rounded-full text-sm md:text-base px-6 py-3" onclick="window.open('https://youtube.com/@allaboutsemicolons?si=IRUNA2wXX1HwLX8a', '_blank')">
+                            <i class="fab fa-youtube mr-2"></i> Subscribe Now
+                        </button>
+                    </div>
+                </div>
+                <!-- Right Side (Photo Section) -->
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative">
+                        <div class="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 bg-white rounded-full shadow-2xl flex items-center justify-center overflow-hidden">
+                            <!-- Photo Insert -->
+                            <img src="pictures/AAS Main Black.png" alt="Hero Photo" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <div class="absolute -bottom-4 -right-4 bg-indigo-600 text-white py-2 px-4 md:py-3 md:px-6 rounded-full shadow-lg">
+                            <p class="font-bold text-sm md:text-lg">112 Subscribers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Channel Stats -->
+    <section class="py-8 md:py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 stats-grid">
+                <div class="stat-card fade-in">
+                    <div class="text-3xl md:text-4xl text-indigo-600 mb-2"><i class="fas fa-users"></i></div>
+                    <div class="text-2xl md:text-3xl font-bold text-gray-800 mb-1">112</div>
+                    <div class="text-gray-600 text-xs md:text-sm">Subscribers</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="text-3xl md:text-4xl text-purple-600 mb-2"><i class="fas fa-video"></i></div>
+                    <div class="text-2xl md:text-3xl font-bold text-gray-800 mb-1">32</div>
+                    <div class="text-gray-600 text-xs md:text-sm">Videos</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="text-3xl md:text-4xl text-blue-600 mb-2"><i class="fas fa-list"></i></div>
+                    <div class="text-2xl md:text-3xl font-bold text-gray-800 mb-1">4</div>
+                    <div class="text-gray-600 text-xs md:text-sm">Playlists</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="text-3xl md:text-4xl text-green-600 mb-2"><i class="fas fa-eye"></i></div>
+                    <div class="text-2xl md:text-3xl font-bold text-gray-800 mb-1">15K</div>
+                    <div class="text-gray-600 text-xs md:text-sm">Total Views</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Playlists Section -->
+    <section id="playlists" class="py-12 md:py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8 md:mb-12 fade-in">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Featured Playlists</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-sm md:text-base">
+                    Structured learning paths to help you master programming concepts step by step
+                </p>
+            </div>
+            
+            <div id="playlistsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Playlist 1 -->
+                <div class="video-card fade-in cursor-pointer" onclick="window.open('https://www.youtube.com/playlist?list=PLY-4_y4R1vcixFH9D5vM3XWz9gQebCk9j', '_blank')">
+                    <div class="relative overflow-hidden rounded-t-xl">
+                        <img src="https://via.placeholder.com/600x400/6366f1/ffffff?text=C+Course" alt="Complete C Programming Course" class="w-full h-40 md:h-48 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <div class="bg-white bg-opacity-90 rounded-full w-12 h-12 md:w-16 md:h-16 flex items-center justify-center">
+                                <i class="fas fa-play text-indigo-600 text-lg md:text-xl ml-1"></i>
+                            </div>
+                        </div>
+                        <div class="absolute top-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                            <i class="fas fa-video mr-1"></i>
+                            12 videos
+                        </div>
+                        <div class="absolute top-2 left-2 bg-indigo-600 text-white text-xs px-2 py-1 rounded-full">
+                            C Programming
+                        </div>
+                    </div>
+                    <div class="playlist-card-content p-3 md:p-4">
+                        <h3 class="font-semibold text-base md:text-lg mb-2 text-gray-800">Complete C Programming Course</h3>
+                        <p class="text-gray-600 text-xs md:text-sm mb-4">Master C programming from basics to advanced concepts with hands-on examples and projects.</p>
+                        <div class="flex items-center justify-between text-xs md:text-sm text-gray-500 mb-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-video mr-1"></i>
+                                <span>12 videos</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-clock mr-1"></i>
+                                <span>3h 45m</span>
+                            </div>
+                        </div>
+                        <div class="playlist-button w-full btn btn-primary bg-indigo-600 hover:bg-indigo-700 border-none text-white text-xs md:text-sm py-2">
+                            <i class="fas fa-play mr-2"></i>
+                            Watch on YouTube
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Playlist 2 -->
+                <div class="video-card fade-in cursor-pointer" onclick="window.open('https://www.youtube.com/playlist?list=PLY-4_y4R1vcixFH9D5vM3XWz9gQebCk9j', '_blank')">
+                    <div class="relative overflow-hidden rounded-t-xl">
+                        <img src="https://via.placeholder.com/600x400/10b981/ffffff?text=Python+Course" alt="Python for Beginners" class="w-full h-40 md:h-48 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <div class="bg-white bg-opacity-90 rounded-full w-12 h-12 md:w-16 md:h-16 flex items-center justify-center">
+                                <i class="fas fa-play text-indigo-600 text-lg md:text-xl ml-1"></i>
+                            </div>
+                        </div>
+                        <div class="absolute top-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                            <i class="fas fa-video mr-1"></i>
+                            8 videos
+                        </div>
+                        <div class="absolute top-2 left-2 bg-indigo-600 text-white text-xs px-2 py-1 rounded-full">
+                            Python
+                        </div>
+                    </div>
+                    <div class="playlist-card-content p-3 md:p-4">
+                        <h3 class="font-semibold text-base md:text-lg mb-2 text-gray-800">Python for Beginners</h3>
+                        <p class="text-gray-600 text-xs md:text-sm mb-4">Start your Python journey with this comprehensive beginner-friendly playlist.</p>
+                        <div class="flex items-center justify-between text-xs md:text-sm text-gray-500 mb-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-video mr-1"></i>
+                                <span>8 videos</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-clock mr-1"></i>
+                                <span>2h 30m</span>
+                            </div>
+                        </div>
+                        <div class="playlist-button w-full btn btn-primary bg-indigo-600 hover:bg-indigo-700 border-none text-white text-xs md:text-sm py-2">
+                            <i class="fas fa-play mr-2"></i>
+                            Watch on YouTube
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Playlist 3 -->
+                <div class="video-card fade-in cursor-pointer" onclick="window.open('https://www.youtube.com/playlist?list=PLY-4_y4R1vcixFH9D5vM3XWz9gQebCk9j', '_blank')">
+                    <div class="relative overflow-hidden rounded-t-xl">
+                        <img src="https://via.placeholder.com/600x400/f59e0b/ffffff?text=DBMS+Course" alt="Database Management Systems" class="w-full h-40 md:h-48 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <div class="bg-white bg-opacity-90 rounded-full w-12 h-12 md:w-16 md:h-16 flex items-center justify-center">
+                                <i class="fas fa-play text-indigo-600 text-lg md:text-xl ml-1"></i>
+                            </div>
+                        </div>
+                        <div class="absolute top-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                            <i class="fas fa-video mr-1"></i>
+                            10 videos
+                        </div>
+                        <div class="absolute top-2 left-2 bg-indigo-600 text-white text-xs px-2 py-1 rounded-full">
+                            DBMS
+                        </div>
+                    </div>
+                    <div class="playlist-card-content p-3 md:p-4">
+                        <h3 class="font-semibold text-base md:text-lg mb-2 text-gray-800">Database Management Systems</h3>
+                        <p class="text-gray-600 text-xs md:text-sm mb-4">Learn DBMS concepts, SQL queries, and database design principles.</p>
+                        <div class="flex items-center justify-between text-xs md:text-sm text-gray-500 mb-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-video mr-1"></i>
+                                <span>10 videos</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-clock mr-1"></i>
+                                <span>4h 15m</span>
+                            </div>
+                        </div>
+                        <div class="playlist-button w-full btn btn-primary bg-indigo-600 hover:bg-indigo-700 border-none text-white text-xs md:text-sm py-2">
+                            <i class="fas fa-play mr-2"></i>
+                            Watch on YouTube
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Playlist 4 -->
+                <div class="video-card fade-in cursor-pointer" onclick="window.open('https://www.youtube.com/playlist?list=PLY-4_y4R1vcixFH9D5vM3XWz9gQebCk9j', '_blank')">
+                    <div class="relative overflow-hidden rounded-t-xl">
+                        <img src="https://via.placeholder.com/600x400/10b981/ffffff?text=Advanced+Python" alt="Advanced Python Concepts" class="w-full h-40 md:h-48 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <div class="bg-white bg-opacity-90 rounded-full w-12 h-12 md:w-16 md:h-16 flex items-center justify-center">
+                                <i class="fas fa-play text-indigo-600 text-lg md:text-xl ml-1"></i>
+                            </div>
+                        </div>
+                        <div class="absolute top-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                            <i class="fas fa-video mr-1"></i>
+                            6 videos
+                        </div>
+                        <div class="absolute top-2 left-2 bg-indigo-600 text-white text-xs px-2 py-1 rounded-full">
+                            Python
+                        </div>
+                    </div>
+                    <div class="playlist-card-content p-3 md:p-4">
+                        <h3 class="font-semibold text-base md:text-lg mb-2 text-gray-800">Advanced Python Concepts</h3>
+                        <p class="text-gray-600 text-xs md:text-sm mb-4">Deep dive into advanced Python topics including OOP, decorators, and more.</p>
+                        <div class="flex items-center justify-between text-xs md:text-sm text-gray-500 mb-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-video mr-1"></i>
+                                <span>6 videos</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-clock mr-1"></i>
+                                <span>2h 50m</span>
+                            </div>
+                        </div>
+                        <div class="playlist-button w-full btn btn-primary bg-indigo-600 hover:bg-indigo-700 border-none text-white text-xs md:text-sm py-2">
+                            <i class="fas fa-play mr-2"></i>
+                            Watch on YouTube
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-12 md:py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <!-- Section Header -->
+            <div class="text-center mb-8 md:mb-12 fade-in">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">About Our Channel</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto text-sm md:text-base">
+                    All About Semicolons provides high-quality content on Programming, Development, 
+                    Machine Learning, Networking, and Research. We make complex concepts simple and help 
+                    learners boost their technical skills and practical knowledge.
+                </p>
+            </div>
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-8 md:mb-12 about-features">
+                <div class="text-center p-4 md:p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 about-feature-card">
+                    <div class="text-3xl md:text-4xl text-indigo-600 mb-4"><i class="fas fa-code"></i></div>
+                    <h3 class="text-base md:text-lg font-semibold text-gray-800 mb-2">Programming</h3>
+                    <p class="text-gray-600 text-xs md:text-sm">
+                        Learn Programming from basics to advanced concepts with hands-on examples.
+                    </p>
+                </div>
+                <div class="text-center p-4 md:p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 about-feature-card">
+                    <div class="text-3xl md:text-4xl text-indigo-600 mb-4"><i class="fas fa-laptop-code"></i></div>
+                    <h3 class="text-base md:text-lg font-semibold text-gray-800 mb-2">Development</h3>
+                    <p class="text-gray-600 text-xs md:text-sm">
+                        Enhance your Development skills and build real-world projects step by step.
+                    </p>
+                </div>
+                <div class="text-center p-4 md:p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 about-feature-card">
+                    <div class="text-3xl md:text-4xl text-indigo-600 mb-4"><i class="fas fa-robot"></i></div>
+                    <h3 class="text-base md:text-lg font-semibold text-gray-800 mb-2">Machine Learning</h3>
+                    <p class="text-gray-600 text-xs md:text-sm">
+                        Explore Machine Learning concepts, algorithms, and practical tutorials.
+                    </p>
+                </div>
+                <div class="text-center p-4 md:p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 about-feature-card">
+                    <div class="text-3xl md:text-4xl text-indigo-600 mb-4"><i class="fas fa-brain"></i></div>
+                    <h3 class="text-base md:text-lg font-semibold text-gray-800 mb-2">Research & Networking</h3>
+                    <p class="text-gray-600 text-xs md:text-sm">
+                        Learn Research methodologies and Networking fundamentals for practical applications.
+                    </p>
+                </div>
+            </div>
+            <!-- Mission & Metrics -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-center">
+                    <div class="about-mission">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-4">Our Mission</h3>
+                        <p class="text-gray-600 mb-4 text-sm md:text-base">
+                            We believe that technical education in Programming, Development, Machine Learning, 
+                            Networking, and Research should be accessible, engaging, and practical. 
+                            Our goal is to bridge the gap between theoretical knowledge and real-world applications.
+                        </p>
+                        <p class="text-gray-600 mb-6 text-sm md:text-base">
+                            Every video is crafted with care to ensure you not only understand the concepts 
+                            but can also apply them confidently in your projects.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="badge badge-primary text-xs">Beginner Friendly</span>
+                            <span class="badge badge-secondary text-xs">Practical Examples</span>
+                            <span class="badge badge-accent text-xs">Step-by-Step</span>
+                            <span class="badge badge-info text-xs">Project-Based</span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-6 md:p-8 text-white">
+                            <h4 class="text-2xl md:text-3xl font-bold mb-2">112+</h4>
+                            <p class="text-indigo-200 mb-4 text-sm md:text-base">Students Learning</p>
+                            <h4 class="text-2xl md:text-3xl font-bold mb-2">32+</h4>
+                            <p class="text-indigo-200 mb-4 text-sm md:text-base">Video Tutorials</p>
+                            <h4 class="text-2xl md:text-3xl font-bold mb-2">15K+</h4>
+                            <p class="text-indigo-200 text-sm md:text-base">Total Views</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900 text-white py-8 md:py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 footer-grid">
+                <div class="md:col-span-2">
+                    <h3 class="text-xl md:text-2xl font-bold mb-4">All About Semicolons</h3>
+                    <p class="text-gray-300 mb-4 max-w-md text-sm md:text-base">
+                        Join our community of learners and master programming concepts through 
+                        high-quality educational content.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://youtube.com/@allaboutsemicolons?si=IRUNA2wXX1HwLX8a" target="_blank" class="btn btn-circle bg-red-600 hover:bg-red-700 border-none text-white w-10 h-10">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <button class="btn btn-circle bg-blue-600 hover:bg-blue-700 border-none text-white w-10 h-10">
+                            <i class="fas fa-envelope"></i>
+                        </button>
+                        <button class="btn btn-circle bg-green-600 hover:bg-green-700 border-none text-white w-10 h-10">
+                            <i class="fas fa-comments"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-300 hover:text-white transition-colors text-sm">Home</a></li>
+                        <li><a href="#playlists" class="text-gray-300 hover:text-white transition-colors text-sm">Playlists</a></li>
+                        <li><a href="#about" class="text-gray-300 hover:text-white transition-colors text-sm">About</a></li>
+                        <li><a href="https://youtube.com/@allaboutsemicolons?si=IRUNA2wXX1HwLX8a" target="_blank" class="text-gray-300 hover:text-white transition-colors text-sm">YouTube Channel</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-6 md:mt-8 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-300 text-xs md:text-sm">
+                    © 2024 All About Semicolons. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Dark mode functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        
+        // Check for saved dark mode preference
+        if (localStorage.getItem('dark-mode') === 'enabled') {
+            body.classList.add('dark-mode');
+            const icon = darkModeToggle.querySelector('i');
+            icon.className = 'fas fa-sun';
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            const icon = darkModeToggle.querySelector('i');
+            icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            
+            // Save preference
+            localStorage.setItem('dark-mode', isDark ? 'enabled' : 'disabled');
+        });
+        
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            const icon = mobileMenuToggle.querySelector('i');
+            icon.className = mobileMenu.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                mobileMenuToggle.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+        
+        // Scroll to top functionality
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                scrollToTopBtn.classList.add('active');
+            } else {
+                scrollToTopBtn.classList.remove('active');
+            }
+            
+            // Update progress bar
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        });
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        scrollToTopBtn.addEventListener('click', scrollToTop);
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Initialize content
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add animation classes on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe elements for animation
+            document.querySelectorAll('.stat-card, .video-card, .about-feature-card').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
